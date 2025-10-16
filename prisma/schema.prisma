@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres:lamotte@localhost:5432/ecommerce?schema=public"
+  url      =  env("DATABASE_URL")
 }
 
 model User {
