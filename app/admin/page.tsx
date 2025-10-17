@@ -10,6 +10,7 @@ import { CategoryForm } from "@/components/admin/category-form"
 import { ProductForm } from "@/components/admin/product-form"
 import { Trash2 } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { formatCurrency } from "@/lib/utils"
 
 interface Category {
   id: string
@@ -219,7 +220,7 @@ export default function AdminPage() {
                         <div>
                           <p className="font-semibold">{product.name}</p>
                           <p className="text-sm text-muted-foreground">
-                            {product.price?.toFixed(2)} € • Stock: {product.stock} • {product.category.name}
+                            {formatCurrency(product.price)} • Stock: {product.stock} • {product.category.name}
                           </p>
                         </div>
                         <Button size="icon" variant="ghost" onClick={() => deleteProduct(product.id)}>
@@ -262,7 +263,7 @@ export default function AdminPage() {
                             {order.items.map((item) => `${item.product.name} (x${item.quantity})`).join(", ")}
                           </p>
                         </div>
-                        <p className="text-lg font-semibold">{order.total?.toFixed(2)} €</p>
+                        <p className="text-lg font-semibold">{formatCurrency(order.total)}</p>
                       </div>
 
                       <div className="w-48">

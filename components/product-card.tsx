@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ShoppingCart } from "lucide-react"
+import { formatCurrency } from "@/lib/utils"
 
 interface ProductCardProps {
   id: string
@@ -34,7 +35,7 @@ export function ProductCard({ id, name, price, image, slug, onAddToCart }: Produ
           <h3 className="font-semibold text-balance hover:text-primary">{name}</h3>
         </Link>
         <div className="mt-2 flex items-center justify-between">
-          <p className="text-lg font-bold">{price?.toFixed(2)} €</p>
+          <p className="text-lg font-bold">{formatCurrency(price)}</p>
           <Button size="icon" variant="ghost" onClick={onAddToCart}>
             <ShoppingCart className="h-4 w-4" />
           </Button>

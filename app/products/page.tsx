@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import { Header } from "@/components/header"
 import { ProductCard } from "@/components/product-card"
 import { useCartStore } from "@/lib/store"
-import { Button } from "@/components/ui/button"
 
 interface Product {
   stock: number
@@ -16,32 +15,22 @@ interface Product {
   category: { name: string }
 }
 
-interface Category {
-  id: string
-  name: string
-  slug: string
-}
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([])
-  const [categories, setCategories] = useState<Category[]>([])
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const addItem = useCartStore((state) => state.addItem)
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const [productsRes, categoriesRes] = await Promise.all([
-          fetch(`/api/products${selectedCategory ? `?categoryId=${selectedCategory}` : ""}`),
-          fetch("/api/categories"),
+        const [productsRes] = await Promise.all([
+          fetch(`/api/products`),
         ])
 
         const productsData = await productsRes.json()
-        const categoriesData = await categoriesRes.json()
 
         setProducts(productsData.products || [])
-        setCategories(categoriesData.categories || [])
       } catch (error) {
         console.error("Fetch error:", error)
       } finally {
@@ -50,7 +39,7 @@ export default function ProductsPage() {
     }
 
     fetchData()
-  }, [selectedCategory])
+  }, [])
 
   const handleAddToCart = (product: Product) => {
     addItem({
@@ -73,7 +62,7 @@ export default function ProductsPage() {
         </div>
 
         {/* Category Filter */}
-        <div className="mb-8 flex flex-wrap gap-2">
+        {/* <div className="mb-8 flex flex-wrap gap-2">
           <Button variant={selectedCategory === null ? "default" : "outline"} onClick={() => setSelectedCategory(null)}>
             Tous
           </Button>
@@ -86,7 +75,7 @@ export default function ProductsPage() {
               {category.name}
             </Button>
           ))}
-        </div>
+        </div> */}
 
         {/* Products Grid */}
         {loading ? (

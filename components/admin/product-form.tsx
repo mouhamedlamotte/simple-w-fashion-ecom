@@ -107,12 +107,12 @@ export function ProductForm({ onSuccess }: ProductFormProps) {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="price">Prix (€)</Label>
+          <Label htmlFor="price">Prix (XOF)</Label>
           <Input
             id="price"
             type="number"
             step="0.01"
-            placeholder="99.99"
+            placeholder="20000"
             {...register("price", { valueAsNumber: true })}
           />
           {errors.price && <p className="text-sm text-red-500">{errors.price.message}</p>}

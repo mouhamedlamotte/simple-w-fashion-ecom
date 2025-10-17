@@ -6,6 +6,7 @@ import { useAuthStore } from "@/lib/store"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { formatCurrency } from "@/lib/utils"
 
 interface Order {
   id: string
@@ -36,7 +37,7 @@ export default function OrdersPage() {
       try {
         const response = await fetch("/api/orders", {
           headers: {
-            "x-user-id": user.id,
+            "x-user-id": user?.id || "",
           },
         })
         const data = await response.json()
@@ -74,7 +75,7 @@ export default function OrdersPage() {
             </Link>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-4 grid">
             {orders.map((order) => (
               <Link key={order.id} href={`/orders/${order.id}`}>
                 <div className="rounded-lg border bg-card p-6 transition-all hover:shadow-md">
@@ -89,7 +90,7 @@ export default function OrdersPage() {
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="font-semibold">{order.total?.toFixed(2)} €</p>
+                    <p className="font-semibold">{formatCurrency(order.total)}</p>
                       <span className="mt-2 inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
                         {order.status}
                       </span>

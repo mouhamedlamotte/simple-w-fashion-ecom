@@ -6,6 +6,7 @@ import { Header } from "@/components/header"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { CheckCircle } from "lucide-react"
+import { formatCurrency } from "@/lib/utils"
 
 interface Order {
   id: string
@@ -88,13 +89,13 @@ export default function OrderConfirmationPage() {
                     <p className="font-medium">{item.product.name}</p>
                     <p className="text-sm text-muted-foreground">Quantité: {item.quantity}</p>
                   </div>
-                  <p className="font-semibold">{(item.price * item.quantity)?.toFixed(2)} €</p>
+                  <p className="font-semibold">{formatCurrency(item.price * item.quantity)}</p>
                 </div>
               ))}
 
               <div className="flex justify-between pt-4 text-lg font-semibold">
                 <span>Total</span>
-                <span>{order.total?.toFixed(2)} €</span>
+                <span>{formatCurrency(order.total)}</span>
               </div>
             </div>
           </div>

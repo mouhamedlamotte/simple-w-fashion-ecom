@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { useCartStore } from "@/lib/store"
 import Image from "next/image"
 import { ShoppingCart } from "lucide-react"
+import { formatCurrency } from "@/lib/utils"
 
 interface Product {
   id: string
@@ -82,12 +83,12 @@ export default function ProductDetailPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="grid gap-8 lg:grid-cols-2">
           {/* Product Image */}
-          <div className="aspect-[3/4] overflow-hidden rounded-lg bg-muted">
+          <div className="aspect-[3/4] overflow-hidden rounded-lg bg-muted p-10 max-h-[600px]">
             <Image
               src={product.images[0]?.url || "/placeholder.svg?height=600&width=450"}
               alt={product.name}
-              width={450}
-              height={600}
+              width={500}
+              height={500}
               className="h-full w-full object-cover"
             />
           </div>
@@ -99,7 +100,7 @@ export default function ProductDetailPage() {
               <h1 className="mt-2 text-4xl font-bold tracking-tight text-balance">{product.name}</h1>
             </div>
 
-            <p className="text-3xl font-bold">{product.price?.toFixed(2)} €</p>
+            <p className="text-3xl font-bold">{formatCurrency(product.price)}</p>
 
             {product.description && <p className="text-muted-foreground text-pretty">{product.description}</p>}
 

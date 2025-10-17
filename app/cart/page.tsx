@@ -8,6 +8,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { formatCurrency } from "@/lib/utils"
 
 export default function CartPage() {
   const items = useCartStore((state) => state.items)
@@ -91,7 +92,7 @@ export default function CartPage() {
                   <div className="flex flex-1 flex-col justify-between">
                     <div>
                       <h3 className="font-semibold">{item.name}</h3>
-                      <p className="mt-1 text-sm text-muted-foreground">{item.price?.toFixed(2)} €</p>
+                      <p className="mt-1 text-sm text-muted-foreground">{formatCurrency(item.price)}</p>
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -121,7 +122,7 @@ export default function CartPage() {
                     <Button size="icon" variant="ghost" onClick={() => removeItem(item.id)}>
                       <Trash2 className="h-4 w-4" />
                     </Button>
-                    <p className="font-semibold">{(item.price * item.quantity)?.toFixed(2)} €</p>
+                    <p className="font-semibold">{formatCurrency(item.price * item.quantity)}</p>
                   </div>
                 </div>
               ))}
@@ -135,7 +136,7 @@ export default function CartPage() {
                 <div className="mt-6 space-y-4">
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Sous-total</span>
-                    <span>{total()?.toFixed(2)} €</span>
+                    <span>{formatCurrency(total())}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Livraison</span>
@@ -144,7 +145,7 @@ export default function CartPage() {
                   <div className="border-t pt-4">
                     <div className="flex justify-between text-lg font-semibold">
                       <span>Total</span>
-                      <span>{total()?.toFixed(2)} €</span>
+                      <span>{formatCurrency(total())}</span>
                     </div>
                   </div>
                 </div>
