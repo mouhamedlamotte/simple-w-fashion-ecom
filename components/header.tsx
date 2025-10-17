@@ -19,13 +19,13 @@ export function Header() {
           FASHION
         </Link>
 
-        <nav className="flex items-center gap-6">
-          <Link href="/products" className="text-sm font-medium hover:text-primary">
+        <nav className="flex items-center gap-2 md:gap-6">
+          <Link href="/products" className="text-xs md:text-sm font-medium hover:text-primary">
             Produits
           </Link>
            {user?.role === "USER" && (
-            <Link href="/orders" className="text-sm font-medium hover:text-primary">
-              Mes commandes
+            <Link href="/orders" className="text-xs md:text-sm font-medium hover:text-primary">
+              commandes
             </Link>
           )}
 
